@@ -1,0 +1,18 @@
+# CDK build and synth outputs
+cdk.out/
+.cdk.staging/
+
+# TypeScript compilation output
+dist/
+lib/**/*.js
+lib/**/*.d.ts
+test/**/*.js
+test/**/*.d.ts
+
+# Package manager and dependencies
+node_modules/
+.pnpm-store/
+pnpm-lock.yaml
+
+# Environmental variables
+.env

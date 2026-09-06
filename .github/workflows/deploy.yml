@@ -1,43 +1,43 @@
 name: Build and Deploy
 
 on:
-  workflow_dispatch: {}
+    workflow_dispatch: {}
 
 permissions:
-  id-token: write
-  contents: read
+    id-token: write
+    contents: read
 
 env: # need pass in .env variables to make available for workflow during build
-  IAMROLE_GITHUB: ${{ secrets.IAMROLE_GITHUB }}
-  AWS_REGION: ${{ vars.AWS_REGION }}
+    IAMROLE_GITHUB: ${{ secrets.IAMROLE_GITHUB }}
+    AWS_REGION: ${{ vars.AWS_REGION }}
 
 jobs:
-  build:
-    name: Build and Deploy
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4 # need setup github role for repo
+    build:
+        name: Build and Deploy
+        runs-on: ubuntu-latest
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@4
+        steps:
+            - name: Checkout Repository
+              uses: actions/checkout@v4 # need setup github role for repo
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          cache: "pnpm"
+            - name: Setup pnpm
+              uses: pnpm/action-setup@4
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+            - name: Setup Node
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20'
+                  cache: 'pnpm'
 
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          role-to-assume: ${{ secrets.IAMROLE_GITHUB }}
-          role-session-name: GitHub-Action-Role
-          aws-region: ${{ env.AWS_REGION }}
-      
-      - name: Deploy CDK Stack
-        run: pnpm cdk deploy --require-approval never
+            - name: Install dependencies
+              run: pnpm install --frozen-lockfile
+
+            - name: Configure AWS Credentials
+              uses: aws-actions/configure-aws-credentials@v4
+              with:
+                  role-to-assume: ${{ secrets.IAMROLE_GITHUB }}
+                  role-session-name: GitHub-Action-Role
+                  aws-region: ${{ env.AWS_REGION }}
+
+            - name: Deploy CDK Stack
+              run: pnpm cdk deploy --require-approval never
