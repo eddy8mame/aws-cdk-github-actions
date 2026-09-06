@@ -23,7 +23,7 @@ export class GithubOidcRoleStack extends cdk.Stack {
                     {
                         StringLike: {
                             'token.actions.githubusercontent.com:sub':
-                                'repo:<OWNER>@<OWNER_ID>/<REPO>@<REPO_ID>:*',
+                                'repo:eddy8mame@132296192/aws-cdk-github-actions@1358388267:*',
                         },
                         StringEquals: {
                             'token.actions.githubusercontent.com:aud':

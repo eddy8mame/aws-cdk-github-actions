@@ -8,7 +8,8 @@ permissions:
     contents: read
 
 env: # need pass in .env variables to make available for workflow during build
-    IAMROLE_GITHUB: ${{ secrets.IAMROLE_GITHUB }}
+    AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+    AWS_IAMROLE_GITHUB: ${{ vars.AWS_IAMROLE_GITHUB }}
     AWS_REGION: ${{ vars.AWS_REGION }}
 
 jobs:
@@ -35,7 +36,7 @@ jobs:
             - name: Configure AWS Credentials
               uses: aws-actions/configure-aws-credentials@v4
               with:
-                  role-to-assume: ${{ secrets.IAMROLE_GITHUB }}
+                  role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/${{ secrets.AWS_IAMROLE_GITHUB }}
                   role-session-name: GitHub-Action-Role
                   aws-region: ${{ env.AWS_REGION }}
 
