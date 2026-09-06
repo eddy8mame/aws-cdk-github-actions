@@ -21,14 +21,11 @@ jobs:
             - name: Checkout Repository
               uses: actions/checkout@v4 # need setup github role for repo
 
-            - name: Setup pnpm
-              uses: pnpm/action-setup@4
-
-            - name: Setup Node
-              uses: actions/setup-node@v4
+            - name: Setup pnpm and Node
+              uses: pnpm/setup-node@v2
               with:
-                  node-version: '20'
-                  cache: 'pnpm'
+                  node-version: 'node@20'
+                  cache: true
 
             - name: Install dependencies
               run: pnpm install --frozen-lockfile
@@ -41,4 +38,4 @@ jobs:
                   aws-region: ${{ env.AWS_REGION }}
 
             - name: Deploy CDK Stack
-              run: pnpm cdk deploy --require-approval never
+              run: pnpm cdk deploy AwsCdkAppStack --require-approval never
