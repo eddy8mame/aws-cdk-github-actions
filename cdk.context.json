@@ -6,6 +6,5 @@
         "us-east-1d",
         "us-east-1e",
         "us-east-1f"
-    ],
-    "ssm:account=891377036226:parameterName=/fastapi-github-actions-aws/image-tag:region=us-east-1": "223bad6861801714ec93ea88203b12aede73966a"
+    ]
 }
