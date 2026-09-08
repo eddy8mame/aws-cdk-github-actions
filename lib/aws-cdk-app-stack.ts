@@ -33,7 +33,7 @@ export class AwsCdkAppStack extends cdk.Stack {
 
         const image = ecs.ContainerImage.fromEcrRepository(repo, imageTag)
 
-        new ecs_patterns.ApplicationLoadBalancedFargateService(
+        const fargateService = new ecs_patterns.ApplicationLoadBalancedFargateService(
             this,
             'MyFargateService',
             {
@@ -48,5 +48,13 @@ export class AwsCdkAppStack extends cdk.Stack {
                 publicLoadBalancer: true, // Default is true
             }
         )
+
+        fargateService.targetGroup.configureHealthCheck({
+            path: '/health',
+            interval: cdk.Duration.seconds(30),
+            timeout: cdk.Duration.seconds(5),
+            healthyThresholdCount: 2,
+            unhealthyThresholdCount: 3,
+        })
     }
 }
