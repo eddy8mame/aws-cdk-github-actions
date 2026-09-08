@@ -42,6 +42,7 @@ export class AwsCdkAppStack extends cdk.Stack {
                 desiredCount: 1, // Default is 1
                 taskImageOptions: {
                     image, // image should be from our FastAPI app ECR repo; stored in ssm parameter store
+                    containerPort: 8000,
                 },
                 memoryLimitMiB: 2048, // Default is 512
                 publicLoadBalancer: true, // Default is true
