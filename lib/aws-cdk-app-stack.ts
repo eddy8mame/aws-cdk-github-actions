@@ -10,7 +10,7 @@ export class AwsCdkAppStack extends cdk.Stack {
     constructor(scope: Construct, id: string, props?: cdk.StackProps) {
         super(scope, id, props)
 
-        const API_ECR_REPO = 'fastapi-github-actions-aws'
+        const API_ECR_REPO = 'team-a/fastapi-github-actions-aws'
         const SSM_PARAM = '/fastapi-github-actions-aws/image-tag'
         const VPC_NAME = 'aws-cdk-fastapi-vpc'
         const CLUSTER_NAME = 'aws-cdk-fastapi-cluster'
